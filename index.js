@@ -12,14 +12,21 @@ app.get("/notas", (req, res) => {
 
 // Crear nota
 app.post("/notas", (req, res) => {
+
+  if (!req.body.texto || req.body.texto.trim() === "") {
+    return res.status(400).json({ error: "El campo texto es obligatorio" });
+  }
+
   const nuevaNota = {
     id: Date.now(),
-    texto: req.body.texto
+    texto: req.body.texto,
+    fecha: new Date().toISOString()
   };
 
   notas.push(nuevaNota);
   res.json(nuevaNota);
 });
+
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en puerto 3000");
