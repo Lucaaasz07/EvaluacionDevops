@@ -1,16 +1,3 @@
-const express = require("express");
-const app = express();
-
-app.use(express.json());
-
-let notas = [];
-
-// Obtener notas
-app.get("/notas", (req, res) => {
-  res.json(notas);
-});
-
-// Crear nota
 app.post("/notas", (req, res) => {
 
   if (!req.body.texto) {
@@ -19,7 +6,8 @@ app.post("/notas", (req, res) => {
 
   const nuevaNota = {
     id: Date.now(),
-    texto: req.body.texto
+    texto: req.body.texto,
+    fecha: new Date().toISOString()  // agregamos fecha
   };
 
   notas.push(nuevaNota);
