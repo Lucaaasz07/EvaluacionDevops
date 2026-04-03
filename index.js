@@ -11,15 +11,12 @@ app.get("/notas", (req, res) => {
 });
 
 // Crear nota
-app.post("/notas", (req, res) => {
-  const nuevaNota = {
-    id: Date.now(),
-    texto: req.body.texto
-  };
+const nuevaNota = {
+  id: Date.now(),
+  texto: req.body.texto,
+  fecha: new Date().toISOString()  // <-- Aquí agregas la fecha
 
-  notas.push(nuevaNota);
-  res.json(nuevaNota);
-});
+};
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en puerto 3000");
