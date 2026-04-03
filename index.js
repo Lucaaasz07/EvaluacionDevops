@@ -1,24 +1,17 @@
-const express = require("express");
-const app = express();
+app.post("/notas", (req, res) => {
 
-app.use(express.json());
+  if (!req.body.texto) {
+    return res.status(400).json({ error: "Texto requerido" });
+  }
 
-let notas = [];
+  const nuevaNota = {
+    id: Date.now(),
+    texto: req.body.texto,
+    fecha: new Date().toISOString()  // agregamos fecha
+  };
 
-// Obtener notas
-app.get("/notas", (req, res) => {
-  res.json(notas);
+  notas.push(nuevaNota);
+  res.json(nuevaNota);
 });
 
-// Crear nota
-const nuevaNota = {
-  id: Date.now(),
-  texto: req.body.texto,
-  fecha: new Date().toISOString()  // <-- Aquí agregas la fecha
-
-};
-
-app.listen(3000, () => {
-  console.log("Servidor corriendo en puerto 3000");
-});
 
