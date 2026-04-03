@@ -12,6 +12,11 @@ app.get("/notas", (req, res) => {
 
 // Crear nota
 app.post("/notas", (req, res) => {
+
+  if (!req.body.texto) {
+    return res.status(400).json({ error: "Texto requerido" });
+  }
+
   const nuevaNota = {
     id: Date.now(),
     texto: req.body.texto
@@ -21,7 +26,4 @@ app.post("/notas", (req, res) => {
   res.json(nuevaNota);
 });
 
-app.listen(3000, () => {
-  console.log("Servidor corriendo en puerto 3000");
-});
 
